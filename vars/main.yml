@@ -1,0 +1,7 @@
+---
+nfs_server: 35.153.135.50
+file_name: demo.txt
+client_dir: /mnt/jyoti
+nfs_mount: 35.153.135.50:/games
+path_file_name: /mnt/jyoti/demo.txt
+

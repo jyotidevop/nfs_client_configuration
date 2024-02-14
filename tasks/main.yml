@@ -1,0 +1,41 @@
+---
+- name: install nfs-client
+  yum:
+      name: nfs-utils
+      state: present
+
+- name: creating directoryto be mounted
+  file:
+      path: "{{ client_dir }}"
+      state: directory
+      owner: root
+      group: root
+      mode: '2755'
+
+- name: update fstab and mount /games
+  mount:
+      src: "{{ nfs_mount }}"
+      path: "{{ client_dir }}"
+      fstype: nfs
+      opts: defaults,rw,bg
+      dump: 0
+      passno: 2
+      state: mounted
+
+- name: check that mounted or not
+  command: "df -h"
+  register: show
+
+- debug:
+      msg: "{{ show.stdout_lines }}"
+
+- name: create a file in nfs-client at location  /mnt/jyoti to check wheater the file shows in nfs-server at  /games location  or not
+  file:
+      path: "{{ path_file_name }}"
+      state: touch
+
+- name: add content in file
+  copy:
+      src: index
+      dest: "{{ path_file_name }}"
+

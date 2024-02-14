@@ -1,0 +1,4 @@
+- name: configuring nfs-client
+  hosts: client
+  roles:
+        - nfsclient
